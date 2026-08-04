@@ -1,7 +1,19 @@
 [extension]
 id = "gitlens"
 name = "GitLens"
-version = "0.1.0"
+version = "0.2.0"
 description = "Git supercharged — inline blame annotations, file history, and commit navigation"
-author = "biscuit-extensions"
+author = "tomlin7"
 icon = "icon.png"
+
+[dependencies]
+python = []
+tools = ["git"]
+
+[contributes]
+commands = [
+    { id = "gitlens.toggle_blame", title = "GitLens: Toggle Inline Blame" },
+    { id = "gitlens.show_commit_details", title = "GitLens: Show Commit Details" },
+    { id = "gitlens.copy_commit_sha", title = "GitLens: Copy Commit SHA" },
+    { id = "gitlens.show_file_history", title = "GitLens: Show File History" }
+]
