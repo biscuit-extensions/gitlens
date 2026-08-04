@@ -1,0 +1,7 @@
+[extension]
+id = "gitlens"
+name = "GitLens"
+version = "0.1.0"
+description = "Git supercharged — inline blame annotations, file history, and commit navigation"
+author = "biscuit-extensions"
+icon = "icon.png"
