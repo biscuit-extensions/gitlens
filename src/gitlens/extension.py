@@ -116,8 +116,25 @@ class GitLens(Extension):
         except Exception as exc:
             return -1, "", str(exc)
 
-    def format_blame_annotation(self, author: str, relative_date: str, summary: str) -> str:
+    def format_blame_annotation(self, author: str | dict, relative_date: str = "", summary: str = "") -> str:
         """Format an inline git blame annotation string."""
+        if isinstance(author, dict):
+            d = author
+            author_str = d.get("author", "")
+            summary_str = d.get("summary", summary)
+            if "date" in d and d["date"]:
+                date_str = str(d["date"])
+            elif "relative_date" in d and d["relative_date"]:
+                date_str = str(d["relative_date"])
+            elif "time" in d and d["time"]:
+                try:
+                    date_str = calculate_relative_time(int(d["time"]))
+                except Exception:
+                    date_str = str(d["time"])
+            else:
+                date_str = relative_date or ""
+            return f"{author_str}, {date_str} • {summary_str}" if date_str else f"{author_str} • {summary_str}"
+
         return f"{author}, {relative_date} • {summary}"
 
     def parse_porcelain_blame(self, raw_blame: str) -> list[BlameLine]:
